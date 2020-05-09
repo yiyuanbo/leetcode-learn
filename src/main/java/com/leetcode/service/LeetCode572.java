@@ -37,33 +37,35 @@ public class LeetCode572 {
         return node4;
     }
 
-}
+    static class Solution {
+        public boolean isSubtree(TreeNode s, TreeNode t) {
+            if (isEqual(s, t)) {
+                return true;
+            }
+            boolean status = false;
+            if (s.left != null) {
+                status = status || isSubtree(s.left, t);
+            }
+            if (s.right != null) {
+                status = status || isSubtree(s.right, t);
+            }
+            return status;
+        }
 
-class Solution {
-    public boolean isSubtree(TreeNode s, TreeNode t) {
-        if (isEqual(s, t)) {
-            return true;
+        public boolean isEqual(TreeNode s, TreeNode t) {
+            if (s == null && t == null) {
+                return true;
+            }else if (s == null || t == null){
+                return false;
+            }
+            if (s.val == t.val) {
+                return isEqual(s.left, t.left) && isEqual(s.right, t.right);
+            }else {
+                return false;
+            }
         }
-        boolean status = false;
-        if (s.left != null) {
-            status = status || isSubtree(s.left, t);
-        }
-        if (s.right != null) {
-            status = status || isSubtree(s.right, t);
-        }
-        return status;
     }
 
-    public boolean isEqual(TreeNode s, TreeNode t) {
-        if (s == null && t == null) {
-            return true;
-        }else if (s == null || t == null){
-            return false;
-        }
-        if (s.val == t.val) {
-            return isEqual(s.left, t.left) && isEqual(s.right, t.right);
-        }else {
-            return false;
-        }
-    }
+
 }
+
